@@ -6,10 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View>
-        <Header headerText='Expo App' />
-        <View style={styles.container}>
-          <Text>Great!</Text>
-        </View>
+        <Header headerText='Login' />
         <Card>
           <CardSection>
             <Input label='Email' placeholder='example@mail.com'/>
