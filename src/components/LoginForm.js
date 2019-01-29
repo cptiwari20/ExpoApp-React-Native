@@ -53,6 +53,11 @@ class LoginForm extends React.Component {
               Login Now
             </Button>
           </CardSection>
+          <CardSection>
+            <Text>
+              {this.props.auth.user}
+            </Text>
+          </CardSection>
         </Card>
       </View>
     );

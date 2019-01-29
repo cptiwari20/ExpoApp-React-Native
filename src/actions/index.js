@@ -16,7 +16,14 @@ export const onPasswordChange = (pass) => {
 
 export const loginUser = ({email, password}) => dispatch => {
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(user =>{
-      dispatch({ type: 'USER_LOGIN_SUCCESS', payload: user})
-    })
-}
+    .then(user => loginUserSuccess(dispatch, user))
+    .catch(err => { 
+        console.log(err)
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(user => loginUserSuccess(dispatch, user))
+        .catch(() => loginUserFail(dispatch))
+      })
+};
+
+const loginUserFail = dispatch => dispatch({ type: 'LOGIN_USER_FAIL' })
+const loginUserSuccess = (dispatch, user) => dispatch({ type: 'USER_LOGIN_SUCCESS', payload: user});
