@@ -2,9 +2,13 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Header, Card, CardSection, Input } from './commons/index';
-import { onEmailChange, onPasswordChange } from '../actions'
+import { onEmailChange, onPasswordChange } from '../actions';
+import { firebaseInitialize } from '../firebaseConfig';
 
  class LoginForm extends React.Component {
+   componentDidMount(){
+     firebaseInitialize;
+   }
    state = { error: '' }
 
    onEmailTextChange(text){
