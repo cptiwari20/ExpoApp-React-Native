@@ -1,36 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Header, Card, CardSection, Input } from './src/commons/index'
+import LoginForm from './src/components/LoginForm';
 
-export default class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <View>
-        <Header headerText='Login' />
-        <Card>
-          <CardSection>
-            <Input label='Email' placeholder='example@mail.com'/>
-          </CardSection>
-          <CardSection>
-            <Input label='Password' placeholder='your secret password' />
-          </CardSection>
-          <CardSection>
-            <Button>
-              Login Now
-            </Button>
-          </CardSection>
-        </Card>
+       <LoginForm /> 
       </View>
-      
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
