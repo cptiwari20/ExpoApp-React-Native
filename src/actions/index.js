@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 // AUTH
 export const onEmailChange = (text) => {
   return {
@@ -12,3 +13,8 @@ export const onPasswordChange = (pass) => {
     payload: pass
   }
 };
+
+export const loginUser = ({email, password}) => {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((user) => console.log(user))
+}
