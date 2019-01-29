@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Header, Card, CardSection, Input } from './commons/index';
+import { Button, Header, Card, CardSection, Input, Spinner } from './commons/index';
 import { onEmailChange, onPasswordChange, loginUser } from '../actions';
 
 class LoginForm extends React.Component {
@@ -22,8 +22,31 @@ class LoginForm extends React.Component {
     this.props.loginUser( { email, password } )
   }
 
+  renderError(error){
+    if(error){
+      return(
+        <View>
+            <Text style={{color: "#e61c5d", alignSelf: 'center', fontSize: 20}}>
+              { error }
+            </Text>
+          </View>
+      )
+    }
+  };
+
+  renderButton(){
+    if(this.props.auth.loading){
+      return <Spinner size="large" />
+    }
+    return (
+        <Button onPress={this.onButtonPress.bind(this)}>
+          Login Now
+        </Button>
+      )
+  }
+
   render() {
-    const { email, password } = this.props.auth;
+    const { email, password, error } = this.props.auth;
     return (
       <View>
         <Header headerText='Login' />
@@ -45,18 +68,9 @@ class LoginForm extends React.Component {
               secureTextEntry
               />
           </CardSection>
-          <View style={{ alignContent: 'space-around'}}>
-            <Text style={{color: "#e61c5d"}}>{this.state.error}</Text>
-          </View>
+            {this.renderError(this.state.error || error)}
           <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Login Now
-            </Button>
-          </CardSection>
-          <CardSection>
-            <Text>
-              {this.props.auth.user}
-            </Text>
+            {this.renderButton()}
           </CardSection>
         </Card>
       </View>
