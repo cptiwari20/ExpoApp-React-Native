@@ -3,16 +3,11 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Header, Card, CardSection, Input } from './commons/index';
 import { onEmailChange, onPasswordChange, loginUser } from '../actions';
-import { firebaseInitialize } from '../firebaseConfig';
 
- class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   state = { error: '' }
 
-  componentWillMount(){
-     firebaseInitialize;
-   }
-
-   onEmailTextChange(text){
+  onEmailTextChange(text){
     let RegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     RegEx.test(text) ? this.setState({ error: ''}) : this.setState({ error: 'Please enter a valid email!'});
     this.props.onEmailChange(text);
@@ -22,10 +17,9 @@ import { firebaseInitialize } from '../firebaseConfig';
     this.props.onPasswordChange(text);
   }
 
-  onButtonPress(e){
-    console.log(e)
-    // const {email, password} = this.props.auth;
-    this.props.loginUser(this.props.auth)
+  onButtonPress(){
+    const {email, password} = this.props.auth;
+    this.props.loginUser( { email, password } )
   }
 
   render() {
@@ -55,7 +49,7 @@ import { firebaseInitialize } from '../firebaseConfig';
             <Text style={{color: "#e61c5d"}}>{this.state.error}</Text>
           </View>
           <CardSection>
-            <Button onPress={e => this.onButtonPress(e)}>
+            <Button onPress={this.onButtonPress.bind(this)}>
               Login Now
             </Button>
           </CardSection>
