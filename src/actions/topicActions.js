@@ -1,7 +1,8 @@
 
-export const createTopic = ( props, value ) => {
+export const createTopic = ( {prop, value} ) => {
+  console.log(props, value)
   return {
     type: 'CREATE_TOPIC',
-    payload: { props, value }
+    payload: { prop, value }
   }
 }
