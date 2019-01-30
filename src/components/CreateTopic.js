@@ -12,7 +12,7 @@ class CreateTopic extends Component {
         <CardSection>
           <Input 
             value={title}
-            onValueChange={(text) => createTopic({ prop: 'title', value: text} )}
+            onChangeText={value => createTopic({ prop: 'title', value} )}
             label='Title' 
             placeholder='Add your topic'
             />
@@ -20,7 +20,7 @@ class CreateTopic extends Component {
         <CardSection>
           <Input 
             value={chapter}
-            onValueChange={(text) => createTopic({ prop: 'chapter', value: text})}
+            onChangeText={value => createTopic({ prop: 'chapter', value })}
             label='Chapter' 
             placeholder='Topic related to a chapter'/>
         </CardSection>
@@ -29,7 +29,7 @@ class CreateTopic extends Component {
           <Picker
             style={{ height: 50, width: 100 }}
             selectedValue={day}
-            onValueChange={(value) => createTopic('day', value)}
+            onValueChange={(value) => createTopic({ prop: 'day', value })}
           >
             <Picker.Item label="Monday" value="Monday" />
             <Picker.Item label="Tuesday" value="Tuesday" />
