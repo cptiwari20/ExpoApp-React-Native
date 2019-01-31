@@ -6,10 +6,10 @@ import {Button, Spinner} from './commons/index';
 class Dashboard extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>This is a Dashboard</Text>
+      <View style={[styles.container, styles.horizontal]}>
+         <Text>This is a Dashboard</Text>
         
-        <ActivityIndicator style={styles.horizontal} size='large' animating/>
+        <ActivityIndicator size='large' animating={true}/>
       </View>
     )
   }

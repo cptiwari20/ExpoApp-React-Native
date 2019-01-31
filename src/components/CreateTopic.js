@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import { createTopic } from '../actions';
+import { updateTopic, createTopic } from '../actions';
 import {Card, CardSection, Button, Input } from './commons/index';
 
 class CreateTopic extends Component {
   render() {
-    const { title , chapter, day, createTopic, topic } = this.props;
+    const { title , chapter, day, updateTopic, createTopic } = this.props;
     return (
       <Card>
         <CardSection>
           <Input 
             value={title}
-            onChangeText={value => createTopic({ prop: 'title', value} )}
+            onChangeText={value => updateTopic({ prop: 'title', value} )}
             label='Title' 
             placeholder='Add your topic'
             />
@@ -20,7 +20,7 @@ class CreateTopic extends Component {
         <CardSection>
           <Input 
             value={chapter}
-            onChangeText={value => createTopic({ prop: 'chapter', value })}
+            onChangeText={value => updateTopic({ prop: 'chapter', value })}
             label='Chapter' 
             placeholder='Topic related to a chapter'/>
         </CardSection>
@@ -29,7 +29,7 @@ class CreateTopic extends Component {
           <Picker
             style={{ height: 50, width: 100 }}
             selectedValue={day}
-            onValueChange={(value) => createTopic({ prop: 'day', value })}
+            onValueChange={(value) => updateTopic({ prop: 'day', value })}
           >
             <Picker.Item label="Monday" value="Monday" />
             <Picker.Item label="Tuesday" value="Tuesday" />
@@ -41,7 +41,7 @@ class CreateTopic extends Component {
           </Picker>
         </CardSection>
         <CardSection>
-          <Button onPress={() => console.log(topic)}> Submit </Button>
+          <Button onPress={() => createTopic({ title , chapter, day })}> Submit </Button>
         </CardSection>
       </Card>
     )
@@ -51,6 +51,6 @@ class CreateTopic extends Component {
 function mapStateToProps({ topic }){
   const { title, chapter, day } = topic;
 
-  return { title, chapter, day, topic }
+  return { title, chapter, day }
 }
-export default connect(mapStateToProps, { createTopic })(CreateTopic);
+export default connect(mapStateToProps, { updateTopic, createTopic })(CreateTopic);
