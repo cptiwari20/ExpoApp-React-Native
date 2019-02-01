@@ -1,15 +1,8 @@
-const initalState = {
-  title: '',
-  chapter: '',
-  day: 'Monday'
-}
-
-export default function(state = initalState, action){
+export default function(state = {}, action){
   switch (action.type){
-    case 'UPDATE_TOPIC':
-      return { ...state, [action.payload.prop]: action.payload.value };
-    case 'CREATE_TOPIC':
-      return initalState;
+    case 'FETCH_TOPIC':
+      console.log(action.payload)
+      return { ...state, ...action.payload };
     default:
       return state;
   }

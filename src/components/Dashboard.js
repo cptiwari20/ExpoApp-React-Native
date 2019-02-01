@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import {Button, Spinner} from './commons/index';
+import { connect } from 'react-redux';
+import { fetchTopic } from '../actions';
 
 
 class Dashboard extends Component {
+  componentWillMount(){
+    this.props.fetchTopic()
+  } 
   render() {
     return (
       <View style={[styles.container, styles.horizontal]}>
@@ -26,4 +30,8 @@ const styles = {
   }
 }
 
-export default Dashboard;
+function mapStateToProps({ allTopics }){
+  return { allTopics }
+}
+
+export default connect(mapStateToProps, { fetchTopic })(Dashboard);

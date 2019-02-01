@@ -18,3 +18,13 @@ export const createTopic = ({ title, chapter, day }) => {
       })
   };
 };
+
+export const fetchTopic = () => {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`users/${currentUser.uid}/topic`)
+      .on('value', snapshot => {
+        dispatch({ type: 'FETCH_TOPIC', payload: snapshot.val() })
+      });
+  };
+};
