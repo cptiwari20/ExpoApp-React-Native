@@ -1,20 +1,34 @@
 import React, {Component} from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { fetchTopic } from '../actions';
+import { CardSection } from './commons';
 
 
 class Dashboard extends Component {
   componentWillMount(){
     this.props.fetchTopic()
   } 
+  
+  renderItem({ item }){
+    return (
+    <CardSection key={item.id}>
+      <Text>{item}</Text>
+    </CardSection>
+    )
+  }
+
+
   render() {
     return (
-      <View style={[styles.container, styles.horizontal]}>
-         <Text>This is a Dashboard</Text>
-        
-        <ActivityIndicator size='large' animating={true}/>
-      </View>
+      <ScrollView>
+         <FlatList 
+            data={this.props.topics}
+            keyExtractor={topic => (topic.id).toString()}
+            renderItem={this.renderItem}
+         />
+      </ScrollView>
     )
   }
 }
@@ -31,7 +45,11 @@ const styles = {
 }
 
 function mapStateToProps({ allTopics }){
-  return { allTopics }
+  return {
+    topics: _.map(allTopics, (val, uid) => {
+      return { ...val, uid}
+    })
+  }
 }
 
 export default connect(mapStateToProps, { fetchTopic })(Dashboard);

@@ -12,7 +12,7 @@ class CreateTopic extends Component {
         <CardSection>
           <Input 
             value={title}
-            onChangeText={value => updateTopic({ prop: 'title', value} )}
+            onChangeText={value => updateTopic({ prop: 'title', value})}
             label='Title' 
             placeholder='Add your topic'
             />
@@ -22,7 +22,7 @@ class CreateTopic extends Component {
             value={chapter}
             onChangeText={value => updateTopic({ prop: 'chapter', value })}
             label='Chapter' 
-            placeholder='Topic related to a chapter'/>
+            placeholder='Topic related to a chapter' />
         </CardSection>
         <CardSection style={{ flexDirection: 'column'}}>
           <Text>Select Day</Text>
