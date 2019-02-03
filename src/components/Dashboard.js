@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { View, FlatList, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { fetchTopic } from '../actions';
-import { CardSection } from './commons';
+import ListItem from './ListItem';
 
 
 class Dashboard extends Component {
@@ -12,20 +11,20 @@ class Dashboard extends Component {
   } 
   
   renderItem({ item }){
-    return (
-    <CardSection key={item.id}>
-      <Text>{item}</Text>
-    </CardSection>
-    )
+    return <ListItem item={item} />
   }
 
 
   render() {
+    console.log(this.props.allTopics)
     return (
       <ScrollView>
+        <View>
+         <Text>Your All topics</Text>
+        </View>
          <FlatList 
-            data={this.props.topics}
-            keyExtractor={topic => (topic.id).toString()}
+            data={this.props.allTopics}
+            keyExtractor={topic => topic}
             renderItem={this.renderItem}
          />
       </ScrollView>
@@ -45,11 +44,7 @@ const styles = {
 }
 
 function mapStateToProps({ allTopics }){
-  return {
-    topics: _.map(allTopics, (val, uid) => {
-      return { ...val, uid}
-    })
-  }
+  return { allTopics }
 }
 
 export default connect(mapStateToProps, { fetchTopic })(Dashboard);
